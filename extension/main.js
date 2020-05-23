@@ -1,4 +1,12 @@
+// let controversialWords = ["problems", "Coronavirus"];
+
+function getAnalysis(_text) {
+    return fetch('http://localhost:5678/getOpinion', {method : "POST", body : JSON.stringify({"text" : _text}), headers : {'Content-Type': 'application/json'}})
+    .then(res => res.json())
+}
+
 setTimeout(function(){
+    let text;
     let posts = [...document.querySelectorAll('div.entry')];
 
     for(let i = 0; i < posts.length; i++) {
@@ -9,5 +17,21 @@ setTimeout(function(){
             posts[i] = arr[0]; // Set posts element as comment or post content
         }
 
+        if(posts[i] === undefined) {
+            continue;
+        }
+
+        getAnalysis(posts[i].innerText).then(elem => {
+            console.log(elem);
+        });
+        
+        // text += posts[i].innerText;
+        // controversialWords.forEach(word => {
+        //     if(text.includes(word)) {
+        //         console.log("FOUND!");
+        //     }
+        // });
+
     }
+    console.log(posts);
 }, 3000); // Timeout acts as a buffer while page loads

@@ -5,10 +5,13 @@ const fetch = require('node-fetch');
 // accepts a word and searches wikipedia for it using the opensearch api
 // returns a promise
 function searchWikipedia(word) {
-    let apiLink = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${word}&limit=1&namespace=0&format=json`
+    let apiLink = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${word}&limit=1&namespace=0&format=json` 
     return fetch(apiLink)
-        .then(res => res.json())
-        .then(data => data[3][0]);
+        .then(res => res.headers.get('Content-Type').indexOf('application/json') !== -1 ? res.json() : res.text().then(console.log))
+        .then(data => data[3][0])
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 // function checkControversial:

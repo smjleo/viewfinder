@@ -10,6 +10,7 @@ const client = new lang.LanguageServiceClient();
 app.use(bodyParser.json())
 
 app.post('/getOpinion', (req, res) => {
+    console.log(req.body);
     if(!req.body || !req.body.text || typeof(req.body.text) !== "string"){
         res.status(400);
         res.end();

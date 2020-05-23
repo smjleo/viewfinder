@@ -45,14 +45,19 @@ app.post('/getOpinion', (req, res) => {
                 }
                 // Check if the topic is controversial,
                 // if it is this URL will have a url in it
-                console.log(url);
                 if(url){
                     // Check all volatile mentions of the topic, and get the opinion.
                     // If it swings between bad and good, then the answer is "mixed".
                     // If it stays good or stays bad, the answer is "positive" or "negative".
                     // If it doesn't run into volatile opinions, it will be "neutral".
+                   
+                    // Sentiment sign. (negative: negative, positive: positive)
                     let sign = 0;
+                    // Opinion.
                     let opinion = "neutral";
+                    // Positions of the places where it is mentioned.
+                    let positions = [];
+
                     for(let j = 0; j < entity.mentions.length; j++){
                         let score = entity.mentions[j].sentiment.score;
                         if(Math.abs(score) >= SENTIMENT_THRESHOLD){
@@ -64,6 +69,7 @@ app.post('/getOpinion', (req, res) => {
                                 sign = Math.sign(score);
                             }
                         }
+                        positions.push(entity.mentions[j].text.beginOffset);
                     }
                     if(sign){
                         opinion = (sign > 0 ? "positive" : "negative");
@@ -71,7 +77,8 @@ app.post('/getOpinion', (req, res) => {
                     result.push({
                         topic: entity.name,
                         opinion,
-                        link: url
+                        link: url,
+                        positions
                     });
                 }
             }

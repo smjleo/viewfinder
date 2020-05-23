@@ -74,6 +74,8 @@ app.post('/getOpinion', (req, res) => {
                     link: url,
                     positions
                 }]).end();
+            } else {
+                res.send([]).end();
             }
         });
 });

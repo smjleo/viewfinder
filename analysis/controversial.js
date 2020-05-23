@@ -17,9 +17,12 @@ function searchWikipedia(word) {
 function isControversial(phrase) {
     return searchWikipedia(phrase)
         .then(data => {
+            console.log(data);
             if (cont.controversialTopics.includes(data)) return data;
             else return undefined;
         });
 }
 
 module.exports = isControversial;
+
+isControversial("Republican Party").then(data => console.log(data));

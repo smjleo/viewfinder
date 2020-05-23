@@ -31,7 +31,6 @@ app.post('/getOpinion', (req, res) => {
             // topic cache in case we run into duplicates
             let topicCache = {};
             for(let i = 0; i < data.entities.length; i++){
-                console.log("lmao");
                 // The threshold at which to consider the opinion volatile.
                 const SENTIMENT_THRESHOLD = 0.5;
                 let entity = data.entities[i];

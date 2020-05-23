@@ -35,16 +35,18 @@ app.get('/api/room/:name', (req, res) => {
  * @param name - the name of the room (named after the controversy)
  */
 app.post('/api/room/:name/join', (req, res) => {
+    const USER_NAME = req.query.username;
+    const ROOM_NAME = req.params.name;
+
     if (VERBOSE_MODE)
-        console.log(`POST at /api/room/${req.params.name}/join?username=${req.params.username}`);
+        console.log(`POST at /api/room/${ROOM_NAME}/join?username=${USER_NAME}`);
 
     const joinTime = Date.now();
     const user = {
-        username: req.params.username,
+        username: USER_NAME,
         jointime: joinTime
     }
 
-    const ROOM_NAME = req.params.name;
     if (!roomExists(ROOM_NAME)) {
         createRoom(ROOM_NAME);
     }

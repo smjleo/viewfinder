@@ -8,10 +8,7 @@ function searchWikipedia(word) {
     let apiLink = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${word}&limit=1&namespace=0&format=json` 
     return fetch(apiLink)
         .then(res => res.headers.get('Content-Type').indexOf('application/json') !== -1 ? res.json() : res.text().then(console.log))
-        .then(data => data[3][0])
-        .catch(err => {
-            console.log(err);
-        })
+        .then(data => data[3][0]);
 }
 
 // function checkControversial:
@@ -20,12 +17,9 @@ function searchWikipedia(word) {
 function isControversial(phrase) {
     return searchWikipedia(phrase)
         .then(data => {
-            console.log(data);
             if (cont.controversialTopics.includes(data)) return data;
             else return undefined;
         });
 }
 
 module.exports = isControversial;
-
-isControversial("Republican Party").then(data => console.log(data));

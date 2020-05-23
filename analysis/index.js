@@ -27,19 +27,15 @@ app.post('/getOpinion', (req, res) => {
         /* only the FIRST document */
         .then(data => data[0])
         .then(async data => {
-            // Result array
-            let result = [];
-            // topic cache in case we run into duplicates
             data.entities.sort((a, b) => b.salience - a.salience);
-            // The threshold at which to consider the opinion volatile.
-            const SENTIMENT_THRESHOLD = 0.5;
-            let entity = data.entities[0];
-            // Check cache
-            let url;
-            url = await isControversial(entity.name);
-            // Check if the topic is controversial,
-            // if it is this URL will have a url in it
-            if(url){
+            for(let i = 0; i < data.entities.length; i++){
+                // The threshold at which to consider the opinion volatile.
+                const SENTIMENT_THRESHOLD = 0.5;
+                let entity = data.entities[i];
+                // Check cache
+                let url;
+                // Check if the topic is controversial,
+                // if it is this URL will have a url in it
                 // Check all volatile mentions of the topic, and get the opinion.
                 // If it swings between bad and good, then the answer is "mixed".
                 // If it stays good or stays bad, the answer is "positive" or "negative".
@@ -68,15 +64,23 @@ app.post('/getOpinion', (req, res) => {
                 if(sign){
                     opinion = (sign > 0 ? "positive" : "negative");
                 }
-                res.send([{
-                    topic: entity.name,
-                    opinion,
-                    link: url,
-                    positions
-                }]).end();
-            } else {
-                res.send([]).end();
+                if(opinion !== "neutral" && opinion !== "mixed"){
+                    let url = await isControversial(entity.name);
+                    if(url){
+                        res.send([{
+                            topic: entity.name,
+                            opinion,
+                            link: url,
+                            positions
+                        }]).end();
+                    } else {
+                        res.send([]).end();
+                    }
+                    return;
+                }
             }
+            res.send([]).end();
+            return;
         });
 });
 

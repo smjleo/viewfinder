@@ -59,7 +59,20 @@ app.post('/api/room/:name/join', (req, res) => {
  * @param name - the name of the room (named after the controversy)
  */
 app.post('/api/room/:name/leave', (req, res) => {
+    const USER_NAME = req.query.username;
+    const ROOM_NAME = req.params.name;
 
+    if (VERBOSE_MODE)
+        console.log(`POST at /api/room/${ROOM_NAME}/leave?username=${USER_NAME}`);
+
+    deleteUserFromRoom(USER_NAME, ROOM_NAME);
+    if (!roomExists(ROOM_NAME)) {
+        res.sendStatus(404);
+    }
+    else {
+        deleteRoom(ROOM_NAME);
+        res.sendStatus(200);
+    }
 });
 
 app.listen(CHAT_PORT, () => {
@@ -87,6 +100,16 @@ const createRoom = (roomName) => {
         console.log(`Creating room ${roomName}.`);
 }
 
+/* Delete a room within the DATABASE
+ * @param roomName the name of the existing room to be deleted from the database
+ * @effect deletes the room from the database
+ */
+const deleteRoom = (roomName) => {
+    delete DATABASE["rooms"][roomName];
+    if (VERBOSE_MODE)
+        console.log(`Deleted room ${roomName}`);
+}
+
 /* Add a user to a room within the DATABASE
  * @param user the user to be added to the room
  * @param roomName the name of the room
@@ -96,4 +119,18 @@ const addUserToRoom = (user, roomName) => {
     DATABASE["rooms"][roomName]["users"].push(user);
     if (VERBOSE_MODE) 
         console.log(`Added user ${user} to room ${roomName}`);
+}
+
+/* Remove a user from a room within the DATABASE
+ * @param userName username of the user to be deleted from the room
+ * @param roomName name of the existing room the user is to be removed from
+ * @effect deletes the user for the given from from the DATABASE
+ */
+const deleteUserFromRoom = (userName, roomName) => {
+    DATABASE["rooms"][roomName]["users"].forEach((user, index) => {
+        if (user.username === userName)
+            DATABASE["rooms"][roomName]["users"].splice(index, 1);
+    });
+    if (VERBOSE_MODE) 
+        console.log(`Deleted user ${userName} from room ${roomName}`);
 }

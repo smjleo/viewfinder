@@ -22,4 +22,4 @@ function isControversial(phrase) {
         });
 }
 
-exports.isControversial = isControversial;
+module.exports = isControversial;

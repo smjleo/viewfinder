@@ -5,6 +5,7 @@ function getAnalysis(_text) {
     .then(res => res.json())
 }
 
+
 setTimeout(function(){
     let text;
     let posts = [...document.querySelectorAll('div.entry')];
@@ -17,21 +18,21 @@ setTimeout(function(){
             posts[i] = arr[0]; // Set posts element as comment or post content
         }
 
-        if(posts[i] === undefined) {
-            continue;
-        }
-
-        getAnalysis(posts[i].innerText).then(elem => {
-            console.log(elem);
-        });
+        setTimeout(function() {
+            if(posts[i] === undefined) {
+                continue;
+            }
         
+            getAnalysis(posts[i].innerText).then(elem => {
+                console.log(elem);
+            });
+        }, 1000);
+    
         // text += posts[i].innerText;
         // controversialWords.forEach(word => {
         //     if(text.includes(word)) {
         //         console.log("FOUND!");
         //     }
         // });
-
     }
-    console.log(posts);
-}, 3000); // Timeout acts as a buffer while page loads
+}, 3000); // Timeout acts as a buffer while page loads  

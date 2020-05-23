@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
 const CHAT_PORT = 4000;
 
@@ -16,6 +17,12 @@ const DATABASE =
         }
     }
 
+// Support handling of POST request data
+app.use(bodyParser.json());
+
+// Support handling of application/x-www-form-urlencoded POST request data
+app.use(bodyParser.urlencoded({extended: true}));
+
 /* Handle the GET request for seeing a chat room
  * @param name - the name of the room (named after the controversy)
  */
@@ -28,7 +35,12 @@ app.get('/api/room/:name', (req, res) => {
  * @param name - the name of the room (named after the controversy)
  */
 app.post('/api/room/:name/join', (req, res) => {
-
+    const joinTime = Date.now();
+    const user = {
+        username: req.query.username,
+        jointime: joinTime
+    }
+    res.send(user);
 });
 
 /* Handle the POST request for leaving a chat room

@@ -16,9 +16,6 @@ const DATABASE =
         }
     }
 
-// Allows the app to parse json files
-app.use(express.json);
-
 /* Handle the GET request for seeing a chat room
  * @param name - the name of the room (named after the controversy)
  */

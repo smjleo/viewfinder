@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const logic = require('./logic.js');
 
 const CHAT_PORT = 4000;
+const VERBOSE_MODE = true;
 
 // Hacked a json database, since it's a hackathon
 const DATABASE = 
@@ -26,7 +26,8 @@ app.use(bodyParser.urlencoded({extended: true}));
  * @param name - the name of the room (named after the controversy)
  */
 app.get('/api/room/:name', (req, res) => {
-    console.log(`GET at /api/room/${req.params.name}`);
+    if (VERBOSE_MODE) 
+        console.log(`GET at /api/room/${req.params.name}`);
     res.send(JSON.stringify(req.params));
 });
 
@@ -34,9 +35,12 @@ app.get('/api/room/:name', (req, res) => {
  * @param name - the name of the room (named after the controversy)
  */
 app.post('/api/room/:name/join', (req, res) => {
+    if (VERBOSE_MODE)
+        console.log(`POST at /api/room/${req.params.name}/join?username=${req.params.username}`);
+
     const joinTime = Date.now();
     const user = {
-        username = req.params.username,
+        username: req.params.username,
         jointime: joinTime
     }
 
@@ -46,7 +50,7 @@ app.post('/api/room/:name/join', (req, res) => {
     }
     addUserToRoom(user, ROOM_NAME);
 
-    res.send(200);
+    res.sendStatus(200);
 });
 
 /* Handle the POST request for leaving a chat room
@@ -77,6 +81,8 @@ const createRoom = (roomName) => {
         "users": [],
         "messages": []
     }
+    if (VERBOSE_MODE) 
+        console.log(`Creating room ${roomName}.`);
 }
 
 /* Add a user to a room within the DATABASE
@@ -86,4 +92,6 @@ const createRoom = (roomName) => {
  */
 const addUserToRoom = (user, roomName) => {
     DATABASE["rooms"][roomName]["users"].push(user);
+    if (VERBOSE_MODE) 
+        console.log(`Added user ${user} to room ${roomName}`);
 }

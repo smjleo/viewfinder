@@ -14,7 +14,7 @@ app.post('/getOpinion', (req, res) => {
         res.end();
         return;
     }
-        client.analyzeEntitySentiment({
+        client.analyzeEntities({
         document: {
             content: req.body.text,
             type: 'PLAIN_TEXT'

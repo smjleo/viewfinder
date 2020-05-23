@@ -59,8 +59,8 @@ app.post('/api/room/:name/join', (req, res) => {
  * @param name - the name of the room (named after the controversy)
  */
 app.post('/api/room/:name/leave', (req, res) => {
-    const USER_NAME = req.query.username;
     const ROOM_NAME = req.params.name;
+    const USER_NAME = req.query.username;
 
     if (VERBOSE_MODE)
         console.log(`POST at /api/room/${ROOM_NAME}/leave?username=${USER_NAME}`);
@@ -72,6 +72,43 @@ app.post('/api/room/:name/leave', (req, res) => {
     else {
         deleteRoom(ROOM_NAME);
         res.sendStatus(200);
+    }
+});
+
+/* Handle new messages sent
+ * @param name - the name of the room (named after the controversy)
+ */
+app.post('/api/room/:name/message', (req, res) => {
+    const ROOM_NAME = req.params.name;
+
+    if (VERBOSE_MODE)
+        console.log(`POST at /api/room/${ROOM_NAME}/message with contents ${req.body}`);
+
+    if (!roomExists(ROOM_NAME)) {
+        res.sendStatus(404);
+    }
+    else {
+        addMessageToRoom(req.body, ROOM_NAME);
+        res.sendStatus(200);
+    }
+});
+
+/* Get messages after a given time
+ * @param name - the name of the room (named after the controversy)
+ */
+app.post('/api/room/:name/getmessages', (req, res) => {
+    const ROOM_NAME = req.params.name;
+    const TIME = req.query.time;
+
+    if (VERBOSE_MODE)
+        console.log(`POST at /api/room/${ROOM_NAME}/getmessages?time=${TIME}`);
+
+    if (!roomExists(ROOM_NAME)) {
+        res.sendStatus(404);
+    }
+    else {
+        const messages = getMessageFromTimeFromRoom(TIME, ROOM_NAME);
+        res.send(messages);
     }
 });
 
@@ -133,4 +170,23 @@ const deleteUserFromRoom = (userName, roomName) => {
     });
     if (VERBOSE_MODE) 
         console.log(`Deleted user ${userName} from room ${roomName}`);
+}
+
+/* Add a message to a room within the DATABASE
+ * @param body a json with keys for "author", "message", and "time"
+ * @param roomName the name of the room which the message should be added to
+ * @effect adds the message to the room
+ */
+const addMessageToRoom = (body, roomName) => {
+    DATABASE["rooms"][roomName]["messages"].push(body);
+}
+
+/* Gets all messages after the given time within a room of the DATABASE
+ * @param time get all the messages sent after this time
+ * @param roomName the name of the room to get the messages from
+ * @return filtered an Array with the filtered messages
+ */
+const getMessageFromTimeFromRoom = (time, roomName) => {
+    const filtered = DATABASE["rooms"][roomName]["messages"].filter(message => message.time >= time);
+    return filtered;
 }

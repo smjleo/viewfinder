@@ -3,6 +3,8 @@ const app = express();
 
 const CHAT_PORT = 4000;
 
+app.use(express.json);
+
 /* Handle the GET request for joining a chat room
  * @param name - the name of the room (named after the controversy)
  */

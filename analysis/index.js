@@ -33,7 +33,7 @@ app.post('/getOpinion', (req, res) => {
             data.entities.sort((a, b) => b.salience - a.salience);
             // The threshold at which to consider the opinion volatile.
             const SENTIMENT_THRESHOLD = 0.5;
-            let entity = data.entities[i];
+            let entity = data.entities[0];
             // Check cache
             let url;
             url = await isControversial(entity.name);

@@ -22,19 +22,23 @@ setTimeout(function(){
             getAnalysis(posts[i].innerText).then(elem => {
                 if(elem.length !== 0) {
                     console.log(elem[0]);
+                    // Walk through the tree.
                     let nodes = document.createTreeWalker(posts[i], NodeFilter.SHOW_ALL, null, null);
+                    // Current node, previous node
                     let node, pnode;
+                    // Amount of text we have lookked through so far
                     let currLength = 0;
                     while(node = nodes.nextNode()){
                         console.log(node);
                         if(node.nodeName === '#text'){
-                            // We know the previous node must have had text in it.
+                            // We know the previous node must have had a "direct" text in it.
                             currLength += pnode.innerText.length;
                             if(currLength > elem[0].positions[0].beginOffset){
                                 // The word is in this element.
                                 currLength -= pnode.innerText.length;
                                 let pos = elem[0].positions[0].beginOffset - currLength;
                                 let str = elem[0].positions[0].content;
+                                // Highlight the word.
                                 pnode.innerHTML = pnode.innerHTML.slice(0,pos) + '<span style="background-color: yellow;">' + pnode.innerHTML.slice(pos, pos+str.length) + '</span>' + pnode.innerHTML.slice(pos+str.length);
                                 break;
                             }

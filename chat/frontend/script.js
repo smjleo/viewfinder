@@ -68,7 +68,7 @@ const getNewMessages = () => {
 
 
 // fancy chat textarea button colour change
-messageTextarea.addEventListener('keypress', e => {
+messageTextarea.addEventListener('keyup', e => {
     if (messageTextarea.value === "") sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
     else sendButtonSvg.style.fill = "#0288D1";
 });

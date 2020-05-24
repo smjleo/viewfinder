@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const CHAT_PORT = 4000;
 const VERBOSE_MODE = true;
@@ -27,6 +28,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 // TODO: safety
 app.use(cors());
 
+// Support static files
+app.use(express.static('../frontend'));
+
 /* Handle the GET request for seeing a chat room
  * @param name - the name of the room (named after the controversy)
  */
@@ -34,7 +38,7 @@ app.get('/api/room/:name', (req, res) => {
     const ROOM_NAME = req.params.name;
     if (VERBOSE_MODE) 
         console.log(`GET at /api/room/${ROOM_NAME}`);
-    res.send(JSON.stringify(DATABASE["rooms"][ROOM_NAME]));
+    res.sendFile(path.join(__dirname, '/../frontend/index.html'));
 });
 
 /* Handle the POST request for joining a chat room

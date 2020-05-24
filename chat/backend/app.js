@@ -82,7 +82,7 @@ app.post('/api/room/:name/message', (req, res) => {
     const ROOM_NAME = req.params.name;
 
     if (VERBOSE_MODE)
-        console.log(`POST at /api/room/${ROOM_NAME}/message with contents ${req.body}`);
+        console.log(`POST at /api/room/${ROOM_NAME}/message with contents ${JSON.stringify(req.body)}`);
 
     if (!roomExists(ROOM_NAME)) {
         res.sendStatus(404);
@@ -155,7 +155,7 @@ const deleteRoom = (roomName) => {
 const addUserToRoom = (user, roomName) => {
     DATABASE["rooms"][roomName]["users"].push(user);
     if (VERBOSE_MODE) 
-        console.log(`Added user ${user} to room ${roomName}`);
+        console.log(`Added user ${JSON.stringify(user)} to room ${roomName}`);
 }
 
 /* Remove a user from a room within the DATABASE
@@ -178,7 +178,7 @@ const deleteUserFromRoom = (userName, roomName) => {
  * @effect adds the message to the room
  */
 const addMessageToRoom = (body, roomName) => {
-    DATABASE["rooms"][roomName]["messages"].push(body);
+    DATABASE["rooms"][roomName]["messages"].push(JSON.stringify(body));
 }
 
 /* Gets all messages after the given time within a room of the DATABASE

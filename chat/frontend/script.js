@@ -1,5 +1,6 @@
 const messageSendButton = document.getElementById('send-button');
 const messageTextarea = document.getElementById('message-area');
+const sendButtonSvg = document.querySelector("svg");
 
 let usernameDisplays = [...document.getElementsByClassName('user-username')];
 
@@ -26,6 +27,7 @@ messageSendButton.addEventListener('click', () => {
     console.log('Clicked');
     console.log(`Sending post request to ${url}`);
     messageTextarea.value = "";
+    sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
     fetch(url, {
         method: 'POST',
         headers: {
@@ -66,7 +68,6 @@ const getNewMessages = () => {
 
 
 // fancy chat textarea button colour change
-const sendButtonSvg = document.querySelector("svg");
 messageTextarea.addEventListener('keypress', e => {
     if (messageTextarea.value === "") sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
     else sendButtonSvg.style.fill = "#0288D1";

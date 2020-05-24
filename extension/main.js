@@ -101,9 +101,20 @@ html { font-family: 'Inter', sans-serif; }
 .viewfinder-word:hover {
     cursor: pointer;
 }
+
+.viewfinder-logo-container {
+    margin: 15px 0 0 0;
+    align-items: right !important;
+    justify-content: space-between !important;
+    text-align: right !important;
+}
+
+.viewfinder-logo {
+    width: 80px;
+}
 `;
 let moreIcon = `<img src = "https://cdn.discordapp.com/attachments/705022189359071263/714002361743441930/more_horiz-24px.svg" alt = "Read Icon">`;
-let chatIcon = `<img src = "https://cdn.discordapp.com/attachments/705022189359071263/714002359705141299/chat-24px.svg" "alt = "Chat Icon">`;
+let chatIcon = `<img src = "https://cdn.discordapp.com/attachments/705022189359071263/714002359705141299/chat-24px.svg" alt = "Chat Icon">`;
 
 document.body.appendChild(popupStyle);
 
@@ -154,10 +165,19 @@ function appendPopup(elementProperties, analysis, randid) {
     chat.href; // add chat link based on topic
     chat.target = "_blank";
 
+    let viewfinderLogoDiv = document.createElement('div');
+    viewfinderLogoDiv.classList.add("viewfinder-logo-container");
+    let viewfinderLogo = document.createElement('img');
+    viewfinderLogo.classList.add("viewfinder-logo")
+    viewfinderLogo.src = "https://cdn.discordapp.com/attachments/705022189359071263/714024589054967848/grey-logo.png";
+    viewfinderLogo.alt = "Viewfinder Logo";
+    viewfinderLogoDiv.appendChild(viewfinderLogo);
+
     popup.appendChild(h2);
     popup.appendChild(p);
     popup.appendChild(readMore);
     popup.appendChild(chat);
+    popup.appendChild(viewfinderLogoDiv);
 
     document.body.appendChild(popup);
 }

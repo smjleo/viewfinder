@@ -23,8 +23,19 @@ const DATABASE =
 io.on('connection', (sock) => {
     console.log("Connected");
     sock.on('msg', msg => {
+        addMessageToRoom(msg, msg.room);
         console.log(msg);
         io.emit('msg', msg);
+    });
+
+    sock.on('join', (joinInfo) => {
+        addUserToRoom(joinInfo.username, joinInfo.room);
+        console.log(joinInfo);
+        io.emit('join', joinInfo);
+    });
+
+    sock.on('disconnect', () => {
+        io.emit('user disconnect');
     });
 });
 
@@ -44,8 +55,8 @@ app.use(express.static('../frontend'));
 /* Handle the GET request for seeing a chat room
  * @param name - the name of the room (named after the controversy)
  */
-app.get('/api/room/:name', (req, res) => {
-    const ROOM_NAME = req.params.name;
+app.get('/api/room', (req, res) => {
+    const ROOM_NAME = req.query.name;
     if (VERBOSE_MODE) 
         console.log(`GET at /api/room/${ROOM_NAME}`);
     res.sendFile(path.join(__dirname, '/../frontend/index.html'));
@@ -130,6 +141,26 @@ app.get('/api/room/:name/getmessages', (req, res) => {
         const messages = getMessageFromTimeFromRoom(TIME, ROOM_NAME);
         res.send({
             data: messages
+        });
+    }
+});
+
+/* Gets all past messages
+ * @param name - the name of the room (named after the controversy)
+ */
+app.get('/api/room/:name/history', (req, res) => {
+    const ROOM_NAME = req.params.name;
+
+    if (VERBOSE_MODE)
+        console.log(`GET at /api/room/${ROOM_NAME}/history`);
+
+    if (!roomExists(ROOM_NAME)) {
+        res.sendStatus(404);
+    }
+    else {
+        const messages = getMessageFromTimeFromRoom(0, ROOM_NAME);
+        res.send({
+            data:messages
         });
     }
 });

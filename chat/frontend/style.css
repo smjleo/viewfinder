@@ -78,3 +78,20 @@ a {
     justify-content: space-between;
     width: 100%;
 }
+
+.chat-details {
+    display: flex;
+}
+
+.username {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.chat-container {
+    margin-bottom: 20px;
+}
+
+.non-interactive {
+    margin-bottom: 30px;
+}

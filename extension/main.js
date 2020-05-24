@@ -62,6 +62,7 @@ html { font-family: 'Inter', sans-serif; }
     background-color: white;
     padding: 20px 20px 20px 15px;
     color: black !important;
+    z-index: 99999999999999999999999999999;
 }
 
 .viewfinder-popup h2 {
@@ -162,7 +163,7 @@ function appendPopup(elementProperties, analysis, randid) {
 
     let chat = document.createElement('a');
     chat.innerHTML = chatIcon + `<p> Discuss this topic </p>`;
-    chat.href; // add chat link based on topic
+    chat.href = 'http://localhost:4000/?room=' + encodeURI(analysis.topic); // add chat link based on topic
     chat.target = "_blank";
 
     let viewfinderLogoDiv = document.createElement('div');
@@ -208,7 +209,7 @@ setTimeout(function(){
                     let currLength = 0;
                     while(node = nodes.nextNode()){
                         console.log(node);
-                        if(node.nodeName === '#text'){
+                        if(node.nodeName === '#text' && pnode){
                             // We know the previous node must have had a "direct" text in it.
                             currLength += pnode.innerText.length;
                             if(currLength > elem[0].positions[0].beginOffset){

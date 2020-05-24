@@ -8,15 +8,18 @@ let usernameDisplays = [...document.getElementsByClassName('user-username')];
 const potentialUsernames = ['Armadillo', 'Platypus', 'Cat', 'Dog', 'Elephant', 'Ferret', 'Lion', 'Cheetah', 'Senpai'];
 
 let username = 'Anonymous' + potentialUsernames[Math.floor(Math.random() * potentialUsernames.length)];
-const room = document.getElementById('room-header').innerHTML.replace(/\s/g, '');
+let room = document.getElementById('room-header').innerHTML.replace(/\s/g, '');
 
 window.onload = () => {
+    room = location.href.slice(location.href.lastIndexOf('?') + 'room='.length + 1);
+    document.getElementById('room-header').innerText = room;
     joinRoom();
     usernameDisplays.forEach((elem) => {
         elem.innerHTML = username;
     });
     console.log(room);
 }
+
 
 messageSendButton.addEventListener('click', () => {
     const messageInfo = {

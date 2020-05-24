@@ -90,6 +90,7 @@ a {
 
 .chat-container {
     margin-bottom: 20px;
+    height: 500px;
 }
 
 .non-interactive {

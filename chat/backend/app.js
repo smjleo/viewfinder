@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 const CHAT_PORT = 4000;
 const VERBOSE_MODE = true;
@@ -17,6 +19,14 @@ const DATABASE =
             }
         }
     }
+
+io.on('connection', (sock) => {
+    console.log("Connected");
+    sock.on('msg', msg => {
+        console.log(msg);
+        io.emit('msg', msg);
+    });
+});
 
 // Support handling of POST request data
 app.use(bodyParser.json());
@@ -124,7 +134,7 @@ app.get('/api/room/:name/getmessages', (req, res) => {
     }
 });
 
-app.listen(CHAT_PORT, () => {
+http.listen(CHAT_PORT, () => {
     console.log(`Chat server now listening on port ${CHAT_PORT}`);
 });
 

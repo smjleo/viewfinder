@@ -1,6 +1,7 @@
 const messageSendButton = document.getElementById('send-button');
 const messageTextarea = document.getElementById('message-area');
 const sendButtonSvg = document.querySelector("svg");
+socket = io();
 
 let usernameDisplays = [...document.getElementsByClassName('user-username')];
 
@@ -29,7 +30,7 @@ messageSendButton.addEventListener('click', () => {
     console.log(`Sending post request to ${url}`);
     messageTextarea.value = "";
     sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
-    fetch(url, {
+    /* fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +40,8 @@ messageSendButton.addEventListener('click', () => {
         return response.status;
     }).catch((error) => {
         console.error(error);
-    });
+    }); */
+    socket.emit('msg', messageInfo);
 });
 
 const joinRoom = () => {
@@ -51,7 +53,7 @@ const joinRoom = () => {
     });
 };
 
-let lastCheck = Date.now() - 1000;
+/* let lastCheck = Date.now() - 1000;
 const FREQUENCY_CHECK = 100;
 const getNewMessages = () => {
     lastCheck += FREQUENCY_CHECK;
@@ -67,6 +69,7 @@ const getNewMessages = () => {
 };
 
 setInterval(getNewMessages, FREQUENCY_CHECK);
+*/
 
 const addNewMessage = (message) => {
     const chats = document.getElementsByClassName('chat-container')[0];
@@ -81,9 +84,13 @@ const addNewMessage = (message) => {
         </div>`;
 };
 
+socket.on('msg', msg => {
+    addNewMessage(msg);
+});
+
 // fancy chat textarea button colour change
 messageTextarea.addEventListener('keyup', e => {
     if (messageTextarea.value === "") sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
     else sendButtonSvg.style.fill = "#0288D1";
 });
-setInterval(FREQUENCY_CHECK, getNewMessages);
+// setInterval(FREQUENCY_CHECK, getNewMessages);

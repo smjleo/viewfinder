@@ -6,13 +6,14 @@ let usernameDisplays = [...document.getElementsByClassName('user-username')];
 const potentialUsernames = ['Armadillo', 'Platypus', 'Cat', 'Dog', 'Elephant', 'Ferret', 'Lion', 'Cheetah', 'Senpai'];
 
 let username = 'Anonymous' + potentialUsernames[Math.floor(Math.random() * potentialUsernames.length)];
-const room = document.getElementById('room-header').innerHTML;
+const room = document.getElementById('room-header').innerHTML.replace(/\s/g, '');
 
 window.onload = () => {
     joinRoom();
-    usernameDisplays.foreach((elem) => {
+    usernameDisplays.forEach((elem) => {
         elem.innerHTML = username;
     });
+    console.log(room);
 }
 
 messageSendButton.addEventListener('click', () => {
@@ -25,10 +26,15 @@ messageSendButton.addEventListener('click', () => {
     console.log('Clicked');
     console.log(`Sending post request to ${url}`);
     fetch(url, {
-        method: 'post',
-        body: JSON.stringify(messageInfo)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageInfo),
     }).then((response) => {
         return response.status;
+    }).catch((error) => {
+        console.error(error);
     });
 });
 
@@ -55,4 +61,4 @@ const getNewMessages = () => {
     });
 };
 
-setInterval(FREQUENCY_CHECK, getNewMessages);
+//setInterval(FREQUENCY_CHECK, getNewMessages);

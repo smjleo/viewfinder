@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const CHAT_PORT = 4000;
 const VERBOSE_MODE = true;
@@ -21,6 +22,10 @@ app.use(bodyParser.json());
 
 // Support handling of application/x-www-form-urlencoded POST request data
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Enable CORS for ALL origins.
+// TODO: safety
+app.use(cors());
 
 /* Handle the GET request for seeing a chat room
  * @param name - the name of the room (named after the controversy)

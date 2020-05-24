@@ -20,7 +20,6 @@ window.onload = () => {
     console.log(room);
 }
 
-
 messageSendButton.addEventListener('click', () => {
     const messageInfo = {
         "author": username,
@@ -33,17 +32,6 @@ messageSendButton.addEventListener('click', () => {
     console.log(`Sending post request to ${url}`);
     messageTextarea.value = "";
     sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
-    /* fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(messageInfo),
-    }).then((response) => {
-        return response.status;
-    }).catch((error) => {
-        console.error(error);
-    }); */
     socket.emit('msg', messageInfo);
 });
 
@@ -55,24 +43,6 @@ const joinRoom = () => {
         method: 'post'
     });
 };
-
-/* let lastCheck = Date.now() - 1000;
-const FREQUENCY_CHECK = 100;
-const getNewMessages = () => {
-    lastCheck += FREQUENCY_CHECK;
-    console.log('Checking for new messages');
-    const url = `http://localhost:4000/api/room/${name}/getmessages?time=${lastCheck}`;
-    fetch(url).then((response) => {
-        return response.json();
-    }).then((data) => {
-        data.forEach((message) => {
-            addNewMessage(message);
-        });
-    });
-};
-
-setInterval(getNewMessages, FREQUENCY_CHECK);
-*/
 
 const addNewMessage = (message) => {
     const chats = document.getElementsByClassName('chat-container')[0];
@@ -96,4 +66,3 @@ messageTextarea.addEventListener('keyup', e => {
     if (messageTextarea.value === "") sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
     else sendButtonSvg.style.fill = "#0288D1";
 });
-// setInterval(FREQUENCY_CHECK, getNewMessages);

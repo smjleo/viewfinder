@@ -142,7 +142,7 @@ function appendPopup(elementProperties, analysis, randid) {
             opinionColor = "black";
             break;
     }
-    p.innerHTML = `This text seems to` + ` <span style = "color: ` + opinionColor + `; font-weight: 700;">` + opinion + `</span> ` + analysis.topic + ".";
+    p.innerHTML = `This text seems to` + ` <span style = "color: ` + opinionColor + `; font-weight: 700;">` + opinion + ` (` + (Math.round(analysis.maxScore * 10) / 10) + `)</span> ` + analysis.topic + ".";
 
     let readMore = document.createElement('a');
     readMore.innerHTML = moreIcon + `<p> Read more </p>`;

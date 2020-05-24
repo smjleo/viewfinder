@@ -68,7 +68,7 @@ app.post('/getOpinion', (req, res) => {
                 if(sign){
                     opinion = (sign > 0 ? "positive" : "negative");
                 }
-                if(opinion !== "neutral" && opinion !== "mixed"){
+                if(true /* opinion !== "neutral" && opinion !== "mixed" */){
                     let url = await isControversial(entity.name);
                     if(url){
                         result.push({
@@ -79,12 +79,12 @@ app.post('/getOpinion', (req, res) => {
                             maxScore
                         });
                     }
-                    triesLeft--;
+                    /* triesLeft--;
                     if(triesLeft == 0){
                         res.send(result);
                         res.end();
                         return;
-                    }
+                    } */
                 }
             }
             res.send(result).end();

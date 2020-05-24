@@ -28,7 +28,7 @@ app.post('/getOpinion', (req, res) => {
         .then(data => data[0])
         .then(async data => {
             let result = [];
-            let triesLeft = 3;
+            let triesLeft = 2;
             data.entities.sort((a, b) => b.salience - a.salience);
             for(let i = 0; i < data.entities.length; i++){
                 // The threshold at which to consider the opinion volatile.

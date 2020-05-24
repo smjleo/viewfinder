@@ -25,6 +25,7 @@ messageSendButton.addEventListener('click', () => {
     const url = `http://localhost:4000/api/room/${room}/message`;
     console.log('Clicked');
     console.log(`Sending post request to ${url}`);
+    messageTextarea.value = "";
     fetch(url, {
         method: 'POST',
         headers: {
@@ -61,4 +62,4 @@ const getNewMessages = () => {
     });
 };
 
-//setInterval(FREQUENCY_CHECK, getNewMessages);
+setInterval(FREQUENCY_CHECK, getNewMessages);

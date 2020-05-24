@@ -206,7 +206,7 @@ setTimeout(function(){
         }
 
         if(i + 1 < posts.length) {
-            setTimeout(recurse, 1000, i + 1); // Untested might change
+            setTimeout(recurse, 10, i + 1); // Untested might change
         }
     })(0);
 

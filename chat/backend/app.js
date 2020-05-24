@@ -106,12 +106,12 @@ app.post('/api/room/:name/message', (req, res) => {
 /* Get messages after a given time
  * @param name - the name of the room (named after the controversy)
  */
-app.post('/api/room/:name/getmessages', (req, res) => {
+app.get('/api/room/:name/getmessages', (req, res) => {
     const ROOM_NAME = req.params.name;
     const TIME = req.query.time;
 
     if (VERBOSE_MODE)
-        console.log(`POST at /api/room/${ROOM_NAME}/getmessages?time=${TIME}`);
+        console.log(`GET at /api/room/${ROOM_NAME}/getmessages?time=${TIME}`);
 
     if (!roomExists(ROOM_NAME)) {
         res.sendStatus(404);
@@ -188,7 +188,7 @@ const deleteUserFromRoom = (userName, roomName) => {
  * @effect adds the message to the room
  */
 const addMessageToRoom = (body, roomName) => {
-    DATABASE["rooms"][roomName]["messages"].push(JSON.stringify(body));
+    DATABASE["rooms"][roomName]["messages"].push(body);
 }
 
 /* Gets all messages after the given time within a room of the DATABASE

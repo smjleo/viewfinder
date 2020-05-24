@@ -24,6 +24,7 @@ messageSendButton.addEventListener('click', () => {
         "time": Date.now()
     }
     const url = `http://localhost:4000/api/room/${room}/message`;
+    if (messageTextarea.value == 0) break;
     console.log('Clicked');
     console.log(`Sending post request to ${url}`);
     messageTextarea.value = "";

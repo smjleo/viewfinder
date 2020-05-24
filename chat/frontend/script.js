@@ -57,16 +57,29 @@ const getNewMessages = () => {
     lastCheck += FREQUENCY_CHECK;
     console.log('Checking for new messages');
     const url = `http://localhost:4000/api/room/${name}/getmessages?time=${lastCheck}`;
-    fetch(url, {
-        method: 'post'
-    }).then((response) => {
-        console.log(response.json());
+    fetch(url).then((response) => {
         return response.json();
+    }).then((data) => {
+        data.forEach((message) => {
+            addNewMessage(message);
+        });
     });
 };
 
-//setInterval(FREQUENCY_CHECK, getNewMessages);
+setInterval(getNewMessages, FREQUENCY_CHECK);
 
+const addNewMessage = (message) => {
+    const chats = document.getElementsByClassName('chat-container')[0];
+    const d = (new Date(message.time)).toString();
+    chats.innerHTML += 
+        `<div class="chat-entry">
+            <div class="chat-details">
+                <p class="username">${message.author}</p>
+                <date>${d}</date>
+            </div>
+            <p class="message">${message.message}</p>
+        </div>`;
+};
 
 // fancy chat textarea button colour change
 messageTextarea.addEventListener('keyup', e => {

@@ -78,16 +78,23 @@ html { font-family: 'Inter', sans-serif; }
     opacity: 0.8 !important;
 }
 
-.viewfinder-popup div {
+.viewfinder-popup a {
+    text-decoration: none !important;
+    color: black !important;
     display: flex;
     align-items: center;
     text-align: left;
     margin: 0 0 5px 0;
+    cursor: pointer;
+    opacity: 0.5;
 }
 
-.viewfinder-popup div img {
+.viewfinder-popup a:hover {
+    opacity: 0.7;
+}
+
+.viewfinder-popup a img {
     margin: 0 20px 0 0;
-    opacity: 0.5;
     width: 20px;
 }
 
@@ -137,16 +144,16 @@ function appendPopup(elementProperties, analysis, randid) {
     }
     p.innerHTML = `This text seems to` + ` <span style = "color: ` + opinionColor + `; font-weight: 700;">` + opinion + `</span> ` + analysis.topic + ".";
 
-    let readMoreDiv = document.createElement('div');
-    readMoreDiv.innerHTML = moreIcon + `<p style = "opacity: 0.5 !important;"> Read more </p>`;
+    let readMore = document.createElement('a');
+    readMore.innerHTML = moreIcon + `<p> Read more </p>`;
 
-    let chatDiv = document.createElement('div');
-    chatDiv.innerHTML = chatIcon + `<p style = "opacity: 0.5 !important;"> Discuss this topic </p>`;
+    let chat = document.createElement('a');
+    chat.innerHTML = chatIcon + `<p> Discuss this topic </p>`;
 
     popup.appendChild(h2);
     popup.appendChild(p);
-    popup.appendChild(readMoreDiv);
-    popup.appendChild(chatDiv);
+    popup.appendChild(readMore);
+    popup.appendChild(chat);
 
     document.body.appendChild(popup);
 }

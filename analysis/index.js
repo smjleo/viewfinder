@@ -27,6 +27,8 @@ app.post('/getOpinion', (req, res) => {
         /* only the FIRST document */
         .then(data => data[0])
         .then(async data => {
+            let result = [];
+            let triesLeft = 3;
             data.entities.sort((a, b) => b.salience - a.salience);
             for(let i = 0; i < data.entities.length; i++){
                 // The threshold at which to consider the opinion volatile.
@@ -67,19 +69,22 @@ app.post('/getOpinion', (req, res) => {
                 if(opinion !== "neutral" && opinion !== "mixed"){
                     let url = await isControversial(entity.name);
                     if(url){
-                        res.send([{
+                        result.push({
                             topic: entity.name,
                             opinion,
                             link: url,
                             positions
-                        }]).end();
-                    } else {
-                        res.send([]).end();
+                        });
                     }
-                    return;
+                    triesLeft--;
+                    if(triesLeft == 0){
+                        res.send(result);
+                        res.end();
+                        return;
+                    }
                 }
             }
-            res.send([]).end();
+            res.send(result).end();
             return;
         });
 });

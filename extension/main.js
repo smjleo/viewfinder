@@ -36,6 +36,7 @@ setTimeout(function(){
                                 let pos = elem[0].positions[0].beginOffset - currLength;
                                 let str = elem[0].positions[0].content;
                                 pnode.innerHTML = pnode.innerHTML.slice(0,pos) + '<span style="background-color: yellow;">' + pnode.innerHTML.slice(pos, pos+str.length) + '</span>' + pnode.innerHTML.slice(pos+str.length);
+                                break;
                             }
                         }
                         pnode = node;

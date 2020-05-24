@@ -39,12 +39,35 @@ setTimeout(function(){
                                 let pos = elem[0].positions[0].beginOffset - currLength;
                                 let str = elem[0].positions[0].content;
                                 // Highlight the word.
-                                pnode.innerHTML = pnode.innerHTML.slice(0,pos) + '<span style="background-color: yellow;">' + pnode.innerHTML.slice(pos, pos+str.length) + '</span>' + pnode.innerHTML.slice(pos+str.length);
-                                break;
+                                let rand = Math.random().toString();
+                                pnode.innerHTML = pnode.innerHTML.slice(0,pos) + '<span class = "viewfinder-word" id = "' + rand + '" style="background-color: yellow;">' + pnode.innerHTML.slice(pos, pos+str.length) + '</span>' + pnode.innerHTML.slice(pos+str.length);
+                                return rand;
                             }
                         }
                         pnode = node;
                     }
+                }
+            }).then(randid => {
+                if(randid) {
+                    let element = document.getElementById(randid);
+                    // let element = [...document.querySelectorAll('.viewfinder-word')].find(e => {
+                    //     console.log(rand);
+                    //     console.log(rand);
+                    //     return e.parentElement.innerText == text;
+                    // });
+    
+                    let elementProperties = element.getBoundingClientRect();
+                    console.log(elementProperties);
+    
+                    let popup = document.createElement('div');
+    
+                    popup.style.position = 'absolute';
+                    popup.style.left = (elementProperties.x + window.scrollX) + "px";
+                    popup.style.top = (elementProperties.y + elementProperties.height + window.scrollY)+ "px";
+    
+                    popup.innerText = "Controversial Flag"; // temporary
+     
+                    document.body.appendChild(popup);
                 }
             });
         }
@@ -53,4 +76,5 @@ setTimeout(function(){
             setTimeout(recurse, 1000, i + 1); // Untested might change
         }
     })(0);
+
 }, 3000); // Timeout acts as a buffer while page loads  

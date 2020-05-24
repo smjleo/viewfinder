@@ -45,6 +45,7 @@ app.post('/getOpinion', (req, res) => {
                
                 // Sentiment sign. (negative: negative, positive: positive)
                 let sign = 0;
+                let maxScore = 0;
                 // Opinion.
                 let opinion = "neutral";
                 // Positions of the places where it is mentioned.
@@ -61,6 +62,7 @@ app.post('/getOpinion', (req, res) => {
                             sign = Math.sign(score);
                         }
                     }
+                    if(Math.abs(score) > Math.abs(maxScore)) maxScore = score;
                     positions.push(entity.mentions[j].text);
                 }
                 if(sign){
@@ -73,7 +75,8 @@ app.post('/getOpinion', (req, res) => {
                             topic: entity.name,
                             opinion,
                             link: url,
-                            positions
+                            positions,
+                            maxScore
                         });
                     }
                     triesLeft--;

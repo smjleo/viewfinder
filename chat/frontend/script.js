@@ -62,3 +62,11 @@ const getNewMessages = () => {
 };
 
 //setInterval(FREQUENCY_CHECK, getNewMessages);
+
+
+// fancy chat textarea button colour change
+const sendButtonSvg = document.querySelector("svg");
+messageTextarea.addEventListener('keypress', e => {
+    if (messageTextarea.value === "") sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
+    else sendButtonSvg.style.fill = "#0288D1";
+}

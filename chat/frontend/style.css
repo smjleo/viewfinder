@@ -128,7 +128,7 @@ button {
 
 svg {
     fill: rgba(0, 0, 0, 0.3);
-    animation: fill 0.2s;
+
 }
 
 svg:active {

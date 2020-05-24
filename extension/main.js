@@ -50,11 +50,6 @@ setTimeout(function(){
             }).then(randid => {
                 if(randid) {
                     let element = document.getElementById(randid);
-                    // let element = [...document.querySelectorAll('.viewfinder-word')].find(e => {
-                    //     console.log(rand);
-                    //     console.log(rand);
-                    //     return e.parentElement.innerText == text;
-                    // });
     
                     let elementProperties = element.getBoundingClientRect();
                     console.log(elementProperties);

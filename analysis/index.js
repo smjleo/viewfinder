@@ -61,7 +61,7 @@ app.post('/getOpinion', (req, res) => {
                             sign = Math.sign(score);
                         }
                     }
-                    positions.push(entity.mentions[j].text.beginOffset);
+                    positions.push(entity.mentions[j].text);
                 }
                 if(sign){
                     opinion = (sign > 0 ? "positive" : "negative");

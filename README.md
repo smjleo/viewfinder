@@ -26,10 +26,10 @@ As more and more people incorporate social media into their lives, it is also im
 
 Viewfinder does the following:
 
-    Highlights words or phrases that are controversial
-    Offers a verdict to discern how supportive or opposing a text is towards a topic
-    Links additional resources to highlighted controversial issues
-    Supplies a convenient room-based online chat platform based on the highlighted issue This is coherently connected with a Chrome extension and an ExpressJS backend.
+- Highlights words or phrases that are controversial
+- Offers a verdict to discern how supportive or opposing a text is towards a topic
+- Links additional resources to highlighted controversial issues
+- Supplies a convenient room-based online chat platform based on the highlighted issue This is coherently connected with a Chrome extension and an ExpressJS backend.
 
 ## How we built it
 
@@ -53,10 +53,10 @@ Our greatest accomplishment, however, was having one of our members win the skri
 
 ## What we learned
 
-    How to unite multiple technologies and skillsets while sustaining a straightforward user experience.
-    The susceptibility of being part of an echo chamber and how it can influence people’s opinions.
-    How there is a lot of strongly opinionated comments on the internet.
-    document.createTreeWalker
+- How to unite multiple technologies and skillsets while sustaining a straightforward user experience.
+- The susceptibility of being part of an echo chamber and how it can influence people’s opinions.
+- How there is a lot of strongly opinionated comments on the internet.
+- `document.createTreeWalker`
 
 ## What's next for Viewfinder
 

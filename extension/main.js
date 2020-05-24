@@ -20,12 +20,14 @@ setTimeout(function(){
 
         if(!(posts[i] === undefined)) {
             getAnalysis(posts[i].innerText).then(elem => {
-                console.log(elem);
+                if(elem.length !== 0) {
+                    console.log(elem[0]);
+                }
             });
         }
 
         if(i + 1 < posts.length) {
-            setTimeout(recurse, 100, i + 1); // Untested might change
+            setTimeout(recurse, 1000, i + 1); // Untested might change
         }
     })(0);
 }, 3000); // Timeout acts as a buffer while page loads  

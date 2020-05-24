@@ -163,7 +163,6 @@ function appendPopup(elementProperties, analysis, randid) {
 }
 
 setTimeout(function(){
-    let text;
     let posts = [...document.querySelectorAll('div.entry')];
 
     (function recurse(i) {

@@ -25,6 +25,7 @@ messageSendButton.addEventListener('click', () => {
     const url = `http://localhost:4000/api/room/${room}/message`;
     console.log('Clicked');
     console.log(`Sending post request to ${url}`);
+    messageTextarea.value = "";
     fetch(url, {
         method: 'POST',
         headers: {
@@ -69,4 +70,5 @@ const sendButtonSvg = document.querySelector("svg");
 messageTextarea.addEventListener('keypress', e => {
     if (messageTextarea.value === "") sendButtonSvg.style.fill = "rgba(0, 0, 0, 0.3)";
     else sendButtonSvg.style.fill = "#0288D1";
-}
+});
+setInterval(FREQUENCY_CHECK, getNewMessages);

@@ -26,9 +26,10 @@ app.use(bodyParser.urlencoded({extended: true}));
  * @param name - the name of the room (named after the controversy)
  */
 app.get('/api/room/:name', (req, res) => {
+    const ROOM_NAME = req.params.name;
     if (VERBOSE_MODE) 
-        console.log(`GET at /api/room/${req.params.name}`);
-    res.send(JSON.stringify(req.params));
+        console.log(`GET at /api/room/${ROOM_NAME}`);
+    res.send(JSON.stringify(DATABASE["rooms"][ROOM_NAME]));
 });
 
 /* Handle the POST request for joining a chat room

@@ -25,7 +25,7 @@ setTimeout(function(){
         }
 
         if(i + 1 < posts.length) {
-            setTimeout(recurse, 100, i + 1); // Untested might change
+            setTimeout(recurse, 500, i + 1); // Untested might change
         }
     })(0);
 }, 3000); // Timeout acts as a buffer while page loads  

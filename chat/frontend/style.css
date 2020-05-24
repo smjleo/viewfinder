@@ -22,7 +22,7 @@ header {
     background-color: #FFFFFF;
     box-sizing: border-box;
     padding: 30px 45px 45px 45px;
-    margin-top: 20px;
+    margin-top: 40px;
     border-radius: 10px;
     box-shadow: 5px 5px 47px -12px rgba(0,0,0,0.75);
 }
@@ -89,10 +89,15 @@ a {
 }
 
 .chat-container {
+    overflow: scroll;
     margin-bottom: 20px;
     height: 500px;
 }
 
 .non-interactive {
     margin-bottom: 30px;
+}
+
+.chat-entry {
+    margin-bottom: 20px;
 }

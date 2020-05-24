@@ -1,7 +1,9 @@
-# Viewfinder
+## Viewfinder
 ![Viewfinder Logo](./assets/blue-logo.png)
 
 Project for OpenHacks 2020 that aims to bring differing views into an understanding and create an open mind for individuals.
+
+## Build and Run
 
 How to use this project:
 - Ensure you have nothing running on ports :4000 and :5678.

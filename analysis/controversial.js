@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 // returns a promise
 function searchWikipedia(word) {
     let apiLink = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${word}&limit=1&namespace=0&format=json` 
-    return fetch(apiLink)
+    return fetch(apiLink, { headers: {"User-Agent": "viewfinder/0.0.1 (bot)"}})
         .then(res => res.headers.get('Content-Type').indexOf('application/json') !== -1 ? res.json() : res.text().then(console.log))
         .then(data => data[3][0]);
 }

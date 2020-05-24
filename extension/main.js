@@ -146,9 +146,13 @@ function appendPopup(elementProperties, analysis, randid) {
 
     let readMore = document.createElement('a');
     readMore.innerHTML = moreIcon + `<p> Read more </p>`;
+    readMore.href = analysis.link;
+    readMore.target = "_blank";
 
     let chat = document.createElement('a');
     chat.innerHTML = chatIcon + `<p> Discuss this topic </p>`;
+    chat.href; // add chat link based on topic
+    chat.target = "_blank";
 
     popup.appendChild(h2);
     popup.appendChild(p);

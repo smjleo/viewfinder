@@ -19,7 +19,7 @@
             </div>
             <div class="bar-child">
                 <div class="login-section">
-                    <p>Signed in as <strong class="username">USERNAME</strong></p>
+                    <p>Signed in as <strong class="user-username">USERNAME</strong></p>
                     <p id="logout">Log out</p>
                 </div>
             </div>
@@ -29,6 +29,11 @@
         <div class="non-interactive">
             <h1 id="topic-header">TOPIC GOES HERE</h2>
             <h3 class="">Discuss your opinions on the topic in the chat below!</h3>
+        </div>
+        <div class="username-change">
+            <textarea id="username"></textarea>
+            <button id="username-change">Set Username</button>
+            <div id="error-mess"></div>
         </div>
         <div class="interactive">
             <div class="chat-container">
@@ -42,5 +47,7 @@
             </form>
         </div>
     </main>
+    <script type="text/javascript" src="script.js"></script>
+    <noscript>Please enable javascript to run this page.</noscript>
 </body>
 </html>

@@ -118,7 +118,9 @@ app.get('/api/room/:name/getmessages', (req, res) => {
     }
     else {
         const messages = getMessageFromTimeFromRoom(TIME, ROOM_NAME);
-        res.send(messages);
+        res.send({
+            data: messages
+        });
     }
 });
 

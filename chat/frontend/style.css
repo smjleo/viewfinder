@@ -1,0 +1,34 @@
+body {
+    font-family: Inter, serif;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+}
+
+.bar-child {
+    float: left;
+}
+
+#logo {
+    display: block;
+    width: 10%;
+}
+
+.descriptive {
+    display: block;
+}
+
+.login-section {
+    display: block;
+    float: right;
+}
